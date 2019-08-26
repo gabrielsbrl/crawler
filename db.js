@@ -5,8 +5,9 @@ module.exports = app => {
         connection: mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '',
-            database: 'c-produtos'
+            password: 'admin',
+            database: 'c-produtos',
+            charset: 'utf8'
         }),
         query: function(query) {
             return new Promise((resolve, reject) => {
