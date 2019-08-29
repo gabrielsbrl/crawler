@@ -35,12 +35,14 @@ module.exports = app => {
                 })
 
                 let prd_title = $('.titulo_det').text()                
+                let description = $('.content_tab p').text().replace("'", '');
 
                 return {
                     title: prd_title,
                     precoAvista: lower,
                     precoParcelado: bigger,
-                    image: $('.imagem_produto_descricao').attr('src')
+                    image: $('.imagem_produto_descricao').attr('src'),
+                    description,                    
                 };          
         
             });

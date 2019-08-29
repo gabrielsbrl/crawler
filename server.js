@@ -1,7 +1,8 @@
 const express = require('express');
 const consign = require('consign');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const requestAmericanas = require('./helpers/requestAmericanas');
 let app = express();
 
 app.use(bodyParser.json());
@@ -16,14 +17,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-consign()
-    .include('db.js')
-    .then('helpers/urlParser.js')
-    .then('helpers/requestPichau.js')
-    .then('helpers/requestProduct.js')
-    .then('helpers/requestAmericanas.js')
-    .then('routes')
-    .into(app);
+app.post('/', async (req, res) => {
+    let uri = req.body.uri;
+    let product = await requestAmericanas(uri);
+    res.json(product);
+}); 
 
 app.listen(port, () => {
     console.log(`Server is running at localhost:${port}`)

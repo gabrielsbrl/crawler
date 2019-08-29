@@ -4,6 +4,8 @@ const cheerio = require('cheerio');
 const http = require('http');
 const url = require('url');
 
+const Rx = require('rxjs');
+
 const options = {
     uri: 'https://www.kabum.com.br/cgi-local/site/produtos/descricao_ofertas.cgi?codigo=90504',
     transform: body => cheerio.load(body)

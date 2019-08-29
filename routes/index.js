@@ -28,8 +28,19 @@ module.exports = app => {
     app.post('/products', async (req, res) => {        
 
         let db = app.db;
-        let request = app.helpers.requestProduct;
         let uriQueryParameter = req.body.uri;
+        let request = null;
+
+        if(uriQueryParameter.includes('americanas'))
+            request = app.helpers.requestAmericanas;
+
+        if(uriQueryParameter.includes('kabum'))
+            request = app.helpers.requestProduct;  
+            
+        if(uriQueryParameter.includes('pichau'))
+            request = app.helpers.requestPichau;
+
+        console.log("has: ", uriQueryParameter.includes('pichau'))
 
         if(uriQueryParameter) 
         {
@@ -40,7 +51,9 @@ module.exports = app => {
                     priceBigger: product.precoParcelado,
                     priceLower: product.precoAvista,
                     title: product.title,
-                    image: product.image
+                    image: product.image,
+                    description: product.description,
+                    link: uriQueryParameter
                 });
 
                 res.json({
